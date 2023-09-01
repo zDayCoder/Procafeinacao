@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Roboto+Mono&display=swap');
+h4 {
+    font-size: var(--font-menu-size);
+    color: var(--text-menu-color);
+    font-family: var(--font-coffee), Sans-serif;
+}
+
+:root {
+    --bgd-color: #f5efe0;
+    --sec-bgd-color: #111;
+    --text-color: #d19566;
+    --text-menu-color: #6c503a;
+    --font-coffee: "Kaushan Script";
+    --font-menu-size: 1.8rem;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: var(--bgd-color);
+}

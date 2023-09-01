@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Roboto+Mono&display=swap');
+h4 {
+    font-size: var(--font-menu-size);
+    color: var(--text-menu-color);
+    font-family: var(--font-coffee), Sans-serif;
+}
+
+:root {
+    --bgd-color: #f5efe0;
+    --sec-bgd-color: #111;
+    --text-color: #d19566;
+    --text-menu-color: #6c503a;
+    --font-coffee: "Kaushan Script";
+    --font-menu-size: 1.8rem;
+}
+
+.elementor-kit-4 {
+    --e-global-color-primary: #6C503A;
+    --e-global-color-secondary: #FFEBDC;
+    --e-global-color-text: #666666;
+    --e-global-color-accent: #576E65;
+    --e-global-color-a4ce5e6: #6C503A;
+    --e-global-color-05ec43e: #576E65;
+    --e-global-color-98f2bba: #D19566;
+    --e-global-color-e7b909b: #333333;
+    --e-global-color-7117afe: #F5EFE0;
+    --e-global-typography-primary-font-family: "Kaushan Script";
+    --e-global-typography-primary-font-weight: 600;
+    --e-global-typography-secondary-font-family: "Lato";
+    --e-global-typography-secondary-font-weight: 400;
+    --e-global-typography-text-font-family: "Lato";
+    --e-global-typography-text-font-size: 1rem;
+    --e-global-typography-text-font-weight: 400;
+    --e-global-typography-accent-font-family: "Lato";
+    --e-global-typography-accent-font-size: 1.2rem;
+    --e-global-typography-accent-font-weight: 500;
+    --e-global-typography-accent-line-height: 1.5em;
+    --e-global-typography-db684c8-font-family: "Kaushan Script";
+    --e-global-typography-db684c8-font-size: 4.8rem;
+    --e-global-typography-fad79ea-font-family: "Kaushan Script";
+    --e-global-typography-fad79ea-font-size: 3.8rem;
+    --e-global-typography-4c9736d-font-family: "Kaushan Script";
+    --e-global-typography-4c9736d-font-size: 2.8rem;
+    --e-global-typography-c2436ce-font-family: "Kaushan Script";
+    --e-global-typography-c2436ce-font-size: 1.8rem;
+    --e-global-typography-3736017-font-family: "Kaushan Script";
+    --e-global-typography-3736017-font-size: 1.4rem;
+    --e-global-typography-3d745f9-font-family: "Kaushan Script";
+    --e-global-typography-3d745f9-font-size: 1.2rem;
+    --e-global-typography-d80ff13-font-family: "Lato";
+    --e-global-typography-d80ff13-font-size: 1.5rem;
+    --e-global-typography-d80ff13-font-weight: 400;
+    --e-global-typography-d80ff13-font-style: italic;
+    --e-global-typography-d80ff13-line-height: 1.5em;
+    color: var( --e-global-color-text);
+    font-family: var( --e-global-typography-text-font-family), Sans-serif;
+    font-size: var( --e-global-typography-text-font-size);
+    font-weight: var( --e-global-typography-text-font-weight);
+    line-height: var( --e-global-typography-text-line-height);
+}
