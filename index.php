@@ -15,7 +15,7 @@
     //for($i = 0; $i < 1; $i++){echo "comi seu cu<br>";}?>
     <!--form method="post">
     <input type="submit" value="enviar"/>
-    </form-->
+    </form--> 
     <a href="https://preview.themeforest.net/item/koffe-cafe-coffee-shop-template-kit/full_screen_preview/26300402" target="_blank">Site referencia</a>
 
     <a href="./initialPage/sites/menu-itens" >Menu</a>
