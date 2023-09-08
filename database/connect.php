@@ -41,7 +41,6 @@ function createDatabase($conn, $databaseName)
 
     if ($conn->query($createdb) === TRUE) {
         $conn->select_db($databaseName);
-        createTables($conn);
     } else {
         echo "Erro ao criar o banco de dados $databaseName: " . $conn->error;
         return false; // Retorna false em caso de erro
@@ -51,8 +50,9 @@ function createDatabase($conn, $databaseName)
     $result = $conn->query($existsdb);
 
     if ($result->num_rows > 0) {
+        createTables($conn);
         return $databaseName;
-    }else{
+    } else {
         echo "Erro o banco de dados $databaseName não existe.";
     }
 }
@@ -67,22 +67,39 @@ function closeconn()
 
 function createTables($conn)
 {
+    createTableUserCategory($conn);
     createTableUsers($conn);
     createTableAddress($conn);
     createTableCategory($conn);
     createTableItens($conn);
 }
 
+function createTableUserCategory($conn)
+{
+    $createTable = "CREATE TABLE IF NOT EXISTS user_category (
+        category_id INT AUTO_INCREMENT PRIMARY KEY,
+        category_name ENUM('cliente', 'empresa') DEFAULT 'cliente'
+    )";
+
+    if ($conn->query($createTable) === TRUE) {
+        return true;
+    } else {
+        error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'item'");
+        return false; // Erro ao criar tabela
+    }
+}
 // Create Table if not exists users // Criar tabela caso não exista
 function createTableUsers($conn)
 {
 
     $createTable = "CREATE TABLE IF NOT EXISTS users (
-            user_id int(11) AUTO_INCREMENT PRIMARY KEY,
-            user_fullname varchar(500) NOT NULL,
-            user_cpf varchar(11) NOT NULL UNIQUE,
-            user_password varchar(128) NOT NULL
-        )";
+        user_id INT AUTO_INCREMENT PRIMARY KEY,
+        user_fullname VARCHAR(500) NOT NULL,
+        user_cpf VARCHAR(11) NOT NULL UNIQUE,
+        user_password VARCHAR(128) NOT NULL,
+        category_id INT,
+        FOREIGN KEY (category_id) REFERENCES user_category(category_id)
+    )";
 
     if ($conn->query($createTable) === TRUE) {
         return true;
@@ -132,9 +149,9 @@ function createTableCategory($conn)
 function createTableItens($conn)
 {
     $createTable = "CREATE TABLE IF NOT EXISTS item (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        item_id INT AUTO_INCREMENT PRIMARY KEY,
         product_name VARCHAR(255) NOT NULL,
-        description TEXT,
+        description VARCHAR(255),
         price DECIMAL(10, 2) NOT NULL,
         item_available BOOLEAN NOT NULL DEFAULT 1,
         category_id INT,
@@ -142,12 +159,14 @@ function createTableItens($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
-        return true; // Tabela 'users' criada com sucesso
+        return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'item'");
         return false; // Erro ao criar tabela
     }
 }
+
+
 
 
 

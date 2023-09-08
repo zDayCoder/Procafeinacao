@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem Vindo - Procafeinação</title>
     <?php require_once('./assets/js/scripts.php');?>
-    <script src="./initialPage/js/index-script.js" ></script>
-    <link href="./initialPage/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="./pages/js/index-script.js" ></script>
+    <link href="./pages/css/style.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -17,8 +17,6 @@
     <input type="submit" value="enviar"/>
     </form--> 
     <a href="https://preview.themeforest.net/item/koffe-cafe-coffee-shop-template-kit/full_screen_preview/26300402" target="_blank">Site referencia</a>
-
-    <a href="./initialPage/sites/menu-itens" >Menu</a>
 
 </body>
 </html>
