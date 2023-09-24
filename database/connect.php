@@ -11,7 +11,9 @@ function error($attb1, $attb2, $attb3)
     $jsonData = json_encode($atributos);
     $expiringTime = time() + 10;
     setcookie('hidden_message', $jsonData, $expiringTime);
-    header("Location: ../../TCC/Procafeinacao/error.php");
+    $base_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+    $page = $base_url . "/TCC/Procafeinacao/error";
+    header("Location: " . $page);
     exit;
 }
 function connection()

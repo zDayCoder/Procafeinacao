@@ -18,8 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_COOKIE['hidden_message']) &&
     }
 
 } else {
-    //header("Location: login.php");
-    //exit;
+    $base_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+    $page = $base_url . "/TCC/Procafeinacao/acesso/login";
+    header("Location: " . $page);
+    exit;
 }
 ?>
 
@@ -39,10 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_COOKIE['hidden_message']) &&
 
     <div class="auth-page-wrapper pt-5">
 
-        <!-- auth page content -->
         <div class="auth-page-content">
             <div class="container">
-                <!-- end row -->
 
                 <div class="row justify-content-center" style="">
                     <div class="col-md-8 col-lg-6 col-xl-5">
@@ -75,37 +75,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_COOKIE['hidden_message']) &&
                                 </div>
 
                             </div>
-                            <!-- end card body -->
-                        </div>
-                        <!-- end card -->
 
+                        </div>
+
+                        
                     </div>
                 </div>
-                <!-- end row -->
+
             </div>
-            <!-- end container -->
+
         </div>
-        <!-- end auth page content -->
 
-        <!-- footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-center">
-                            <p class="mb-0 text-muted">&copy;
-                                <script>
-                                document.write(new Date().getFullYear())
-                                </script> Duos Leni. Criado por <span class="text-danger"> Lenitech </span><i class="mdi bi-heart text-danger mb-3"></i> 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- end Footer -->
+        
+        <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/parts/rodape.php'); ?>
+
     </div>
-    <!-- end auth-page-wrapper -->
 </body>
 
 </html>

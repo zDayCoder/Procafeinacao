@@ -200,7 +200,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
             </div>
 
-            <?php include('../parts/rodape.php') ?>
+            <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/parts/rodape.php'); ?>
 
         </div>
 
