@@ -1,6 +1,6 @@
 <footer class="footer" style="bottom: 0;
   padding: 20px calc(1.5rem * 0.5);
-  position: absolute;
+  position: fixed;
   right: 0;
   left: 0px;
   height: 10px;">

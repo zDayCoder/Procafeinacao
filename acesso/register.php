@@ -1,15 +1,13 @@
 <?php
 $message = null;
 session_start();
-require_once '../sqls/login_page_sql.php';
+require_once($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/sqls/UAC/login_uac_sql.php');
 if (session_status() === PHP_SESSION_ACTIVE) {
-    //session_destroy();
     if (!empty($_SESSION)) {
-        if (isset($_SESSION['Ucpf']) && isset($_SESSION['Upassword'])) {
-            $user_cpf = $_SESSION['Ucpf'];
-            $user_password = $_SESSION['Upassword'];
-            $page = "menu";
-            //$message = login($user_cpf, $user_password, $page);
+        if (isset($_SESSION['Ucpfcnpj']) && isset($_SESSION['Upassword'])) {
+            $base_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+            $page = $base_url . "/TCC/Procafeinacao/acesso/login";
+            header("Location: " . $page);
         }
     } else {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -66,11 +64,24 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
                                                 <div class="card ">
                                                     <form method="post"> <!--action="javascript:void(0);"-->
-                                                        <fieldset class="d-block">
-                                                            <div class="card-header text-center">
-                                                                <h4 class="card-title mb-0 text-primary">Criar nova conta
+                                                        <div class="card-header m-0 p-0" style="overflow:hidden">
+                                                            <div class="row" id="change">
+                                                                <h4 class="card-title mb-0 w-50 text-primary text-center p-2 tab selected"
+                                                                    style="cursor:pointer;" data-target="cliente">Cliente
+                                                                </h4>
+                                                                <h4 class="card-title mb-0 w-50 text-primary text-center tab p-2"
+                                                                    style="cursor:pointer;" data-target="empresa">Empresa
                                                                 </h4>
                                                             </div>
+                                                        </div>
+
+
+                                                        <style>
+                                                            .selected {
+                                                                background-color: coral;
+                                                            }
+                                                        </style>
+                                                        <fieldset id="cliente" class="d-block tab-content">
 
                                                             <div class="card-body">
 
@@ -135,18 +146,107 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <a href="login" class="text-decoration-none">
-                                                                <div class="card-footer text-center text-muted"
-                                                                    style="background-color: #affaaa;">
-                                                                    <h6 class="card-title mb-0 text-primary">Já possuí uma
-                                                                        conta?
-                                                                    </h6>
-                                                                    <p
-                                                                        style="text-decoration: underline;font-size:14px;margin:4px 0px 0px 0px">
-                                                                        Entre</p>
-                                                                </div>
-                                                            </a>
                                                         </fieldset>
+
+                                                        <fieldset id="empresa" class="d-none tab-content">
+
+                                                            <div class="card-body">
+
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="mb-3">
+                                                                            <label for="user_fullname"
+                                                                                class="form-label">Nome fantasia</label>
+                                                                            <input required type="text" class="form-control"
+                                                                                name="user_fullname"
+                                                                                placeholder="Digite seu nome completo"
+                                                                                id="user_fullname">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="mb-3">
+                                                                            <label for="user_cpf"
+                                                                                class="form-label">CNPJ</label>
+                                                                            <input required type="text" class="form-control"
+                                                                                name="user_cpf" placeholder="Digite o CNPJ"
+                                                                                id="user_cpf">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="mb-3 position-relative">
+                                                                            <label for="user_password"
+                                                                                class="form-label">Senha</label>
+                                                                            <div class="input-group">
+                                                                                <input required autocomplete="off"
+                                                                                    type="password" class="form-control"
+                                                                                    name="user_password"
+                                                                                    placeholder="Digite sua senha"
+                                                                                    id="user_password">
+                                                                                <div id="password-toggle"
+                                                                                    class="btn btn-link text-muted" style="position: absolute;
+                                                                            top: 50%;
+                                                                            right: 0px;
+                                                                            transform: translateY(-50%);
+                                                                            z-index: 10; cursor: pointer;">
+                                                                                    <i id="password-toggle-ico"
+                                                                                        class="bi bi-eye-slash fs-20"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php if ($message != null) { ?>
+                                                                        <div class="mt-2">
+                                                                            <div class="alert alert-danger" role="alert">
+                                                                                <?php $messageLines = explode("\n", $message);
+                                                                                foreach ($messageLines as $line) {
+                                                                                    echo $line . "<br>";
+                                                                                }
+                                                                                ?>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php } ?>
+                                                                    <div class="col-lg-12">
+                                                                        <div class="text-right">
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Cadastrar</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </fieldset>
+                                                        <a href="login" class="text-decoration-none">
+                                                            <div class="card-footer text-center text-muted"
+                                                                style="background-color: #affaaa;">
+                                                                <h6 class="card-title mb-0 text-primary">Já possuí uma
+                                                                    conta?
+                                                                </h6>
+                                                                <p
+                                                                    style="text-decoration: underline;font-size:14px;margin:4px 0px 0px 0px">
+                                                                    Entre</p>
+                                                            </div>
+                                                        </a>
+                                                        <script>
+                                                            $(document).ready(function () {
+                                                                $(".tab").click(function () {
+                                                                    // Remove a classe 'selected' de todas as abas
+                                                                    $(".tab").removeClass("selected");
+
+                                                                    // Adicione a classe 'selected' à aba clicada
+                                                                    $(this).addClass("selected");
+
+                                                                    // Oculta todos os conteúdos das abas
+                                                                    $(".tab-content").removeClass("d-block").addClass("d-none");
+
+                                                                    // Obtém o alvo (target) da aba clicada
+                                                                    var target = $(this).data("target");
+
+                                                                    // Mostra o conteúdo da aba correspondente
+                                                                    $("#" + target).removeClass("d-none").addClass("d-block");
+                                                                });
+                                                            });
+                                                        </script>
+
                                                     </form>
                                                 </div>
 

@@ -1,18 +1,21 @@
 <?php
 // Inclui o arquivo de conexão com o banco de dados e cria a conexão
-require_once '../database/connect.php';
-require_once 'consultas_user_sql.php';
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/connect.php');
+require_once 'consultas_uac_sql.php';
 
 function login($user, $page)
 {
-    $find = findUserByCPF($user['user_cpf']);
+    $find = $user['user_type'] === "C" ? findUserByCPF($user['client_cpf']) : findUserByCNPJ($user['business_cnpj']);
     if ($find) {
         if ($user['user_password'] === $find['user_password']) {
             makeSession($find);
+            
             gotoPage($page);
+            exit;
+            //gotoaPage($page);
         }else{
             $message = "Senha inválida.";
-            
+            exit;
             //gotoPage("senha errada");
         }
            /* if (!isBlocked($find)) {
@@ -42,7 +45,7 @@ function login($user, $page)
     }
     return $message;
 }
-
+/*
 function Register($user, $page)
 {
     $conn = connection();
@@ -78,7 +81,7 @@ function Register($user, $page)
             throw new Exception("Erro ao criar o cadastro.");
         }
     }
-}
+}*/
 
 
 function isBlocked($user)
@@ -141,9 +144,10 @@ function failedLoginAttemptMessage($user)
 function makeSession($user)
 {
     $_SESSION['UID'] = $user['user_id'];
-    $_SESSION['Ufname'] = $user['user_fullname'];
-    $_SESSION['Ucpf'] = $user['user_cpf'];
+    $_SESSION['Uname'] = $user['user_name'];
+    $_SESSION['Ucpfcnpj'] = $user['user_type'] === "C" ? $user['client_cpf'] : $user['business_cnpj'];
     $_SESSION['Upassword'] = $user['user_password'];
+   // gotoPage( $_SESSION['Uname'] );
 }
 function gotoPage($page)
 {

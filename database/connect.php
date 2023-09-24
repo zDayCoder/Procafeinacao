@@ -20,8 +20,8 @@ function connection()
     $username = "root";
     $password = "";
 
-    $dbname = createDatabase(new mysqli($servername, $username, $password), "procafedb");
-
+    $dbname = createDatabase(new mysqli($servername, $username, $password), "if0_35034372_procafedb");
+    
     try {
         global $conn;
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -48,13 +48,11 @@ function createDatabase($conn, $databaseName)
     $result = $conn->query($existsdb);
 
     if ($result->num_rows > 0) {
-        createTables($conn);
         return $databaseName;
     } else {
         echo "Erro o banco de dados $databaseName não existe.";
     }
 }
-
 
 function closeconn()
 {
@@ -62,52 +60,81 @@ function closeconn()
     $conn->close();
 }
 
+createTables();
 
-function createTables($conn)
+function createTables()
 {
-    createTableEndereco($conn);
-    createTableUser($conn);
-    createTableCliente($conn);
-    createTableEmpresa($conn);
-    createTableHorarioFuncionamento($conn);
-    createTableCategoria($conn);
-    createTableAdicional($conn);
-    createTableItem($conn);
-    createTableItemAdicional($conn);
-    createTableMenu($conn);
-    createTableItemPedido($conn);
-    createTableDeSempre($conn);
-    createTableItemPedidoDeSempre($conn);
-    createTableSacola($conn);
-    createTableUltimoPedido($conn);
+    createTableEndereco();
+    createTableUser();
+    createTableCliente();
+    createTableEmpresa();
+    createTableHorarioFuncionamento();
+    createTableCategoria();
+    createTableAdicional();
+    createTableItem();
+    createTableItemAdicional();
+    createTableMenu();
+    createTableItemPedido();
+    createTableDeSempre();
+    createTableItemPedidoDeSempre();
+    createTableSacola();
+    createTableUltimoPedido();
 }
 
 
 
 
 
-function createTableEndereco($conn)
+function createTableEndereco()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS address (
         address_id INT AUTO_INCREMENT PRIMARY KEY,
-        address_street VARCHAR(80) NOT NULL,
-        address_city VARCHAR(80) NOT NULL,
-        address_state VARCHAR(80) NOT NULL,
+        address_zip_code BIGINT(8) NOT NULL,
         address_number VARCHAR(80) NOT NULL,
         address_complement VARCHAR(80) NOT NULL,
-        address_zip_code BIGINT(8) NOT NULL,
+        address_street VARCHAR(80) NOT NULL,
+        address_district VARCHAR(80) NOT NULL,
+        address_city VARCHAR(80) NOT NULL,
+        address_state VARCHAR(80) NOT NULL
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'address'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
+    
 }
-
-function createTableUser($conn)
+/*
+function createTableUser()
 {
+    $conn = connection();
+    $createTable = "CREATE TABLE IF NOT EXISTS user (
+        user_id INT AUTO_INCREMENT PRIMARY KEY,
+        user_name VARCHAR(120) NOT NULL,
+        user_password VARCHAR(128) NOT NULL,
+        user_phone VARCHAR(11) DEFAULT NULL,
+        user_cpf BIGINT(11) NOT NULL,
+        user_email VARCHAR(120) NOT NULL
+    )";
+
+    if ($conn->query($createTable) === TRUE) {
+        closeconn();
+        return true;
+    } else {
+        error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'user'");
+        closeconn();
+        return false; // Erro ao criar tabela
+    }
+}*/
+
+function createTableUser()
+{
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS user (
         user_id INT AUTO_INCREMENT PRIMARY KEY,
         user_name VARCHAR(120) NOT NULL,
@@ -115,37 +142,43 @@ function createTableUser($conn)
         user_phone VARCHAR(11) DEFAULT NULL,
         user_email VARCHAR(120) NOT NULL,
         user_photo MEDIUMBLOB DEFAULT NULL,
+        user_type CHAR NOT NULL DEFAULT 'C',
         address_id INT NOT NULL,
-        FOREIGN KEY (address_id) REFERENCES address(address_id),
+        FOREIGN KEY (address_id) REFERENCES address(address_id)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'user'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableCliente($conn)
+function createTableCliente()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS client (
         user_id INT PRIMARY KEY,
-        client_cpf BIGINT(11) NOT NULL,
-        client_date_of_birth DATE NOT NULL,
+        client_cpf BIGINT(11) NOT NULL UNIQUE,
         FOREIGN KEY (user_id) REFERENCES user(user_id)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'client'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableEmpresa($conn)
+function createTableEmpresa()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS business (
         user_id INT PRIMARY KEY,
         business_cnpj BIGINT(11) NOT NULL,
@@ -153,15 +186,18 @@ function createTableEmpresa($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'business'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableHorarioFuncionamento($conn)
+function createTableHorarioFuncionamento()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS opening_hours (
         opening_hours_id INT AUTO_INCREMENT PRIMARY KEY,
         opening_hours_days BIGINT(11) NOT NULL,
@@ -171,46 +207,55 @@ function createTableHorarioFuncionamento($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'opening_hours'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableCategoria($conn)
+function createTableCategoria()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS category (
         category_id INT AUTO_INCREMENT PRIMARY KEY,
-        category_name VARCHAR(80) NOT NULL,
+        category_name VARCHAR(80) NOT NULL
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'category'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableAdicional($conn)
+function createTableAdicional()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS aditional (
         aditional_id INT AUTO_INCREMENT PRIMARY KEY,
         aditional_name VARCHAR(80) NOT NULL,
         aditional_amount INTEGER NOT NULL,
-        aditional_price NUMERIC(10,2) NOT NULL,
+        aditional_price NUMERIC(10,2) NOT NULL
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'aditional'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
-function createTableItem($conn)
+function createTableItem()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS item (
         item_id INT AUTO_INCREMENT PRIMARY KEY,
         item_name VARCHAR(80) NOT NULL,
@@ -221,15 +266,18 @@ function createTableItem($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'item'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableItemAdicional($conn)
+function createTableItemAdicional()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS item_aditional (
         item_id INT NOT NULL,
         aditional_id INT NOT NULL,
@@ -239,16 +287,18 @@ function createTableItemAdicional($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'item_aditional'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableMenu($conn)
+function createTableMenu()
 {
-
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS menu (
         menu_id INT AUTO_INCREMENT PRIMARY KEY,
         business_id INT NOT NULL,
@@ -256,15 +306,18 @@ function createTableMenu($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'menu'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableItemPedido($conn)
+function createTableItemPedido()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS ordered_item (
         ordered_item_id INT AUTO_INCREMENT PRIMARY KEY,
         ordered_item_subtotal_price NUMERIC(10,2) NOT NULL,
@@ -277,15 +330,18 @@ function createTableItemPedido($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'ordered_item'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableDeSempre($conn)
+function createTableDeSempre()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS of_evermore (
         of_evermore_id INT AUTO_INCREMENT PRIMARY KEY,
         ordered_item_id INT NOT NULL,
@@ -293,15 +349,18 @@ function createTableDeSempre($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'of_evermore'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableItemPedidoDeSempre($conn)
+function createTableItemPedidoDeSempre()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS ordered_item_of_evermore (
         ordered_item_of_evermore_id INT AUTO_INCREMENT PRIMARY KEY,
         ordered_item_id INT NOT NULL,
@@ -311,15 +370,18 @@ function createTableItemPedidoDeSempre($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'ordered_item_of_evermore'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableSacola($conn)
+function createTableSacola()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS wallet (
         wallet_id INT AUTO_INCREMENT PRIMARY KEY,
         wallet_amount INTEGER NOT NULL,
@@ -329,15 +391,18 @@ function createTableSacola($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'wallet'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }
 
-function createTableUltimoPedido($conn)
+function createTableUltimoPedido()
 {
+    $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS last_order (
         last_order_id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
@@ -347,9 +412,11 @@ function createTableUltimoPedido($conn)
     )";
 
     if ($conn->query($createTable) === TRUE) {
+        closeconn();
         return true;
     } else {
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'last_order'");
+        closeconn();
         return false; // Erro ao criar tabela
     }
 }

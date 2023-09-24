@@ -1,7 +1,8 @@
 <?php
 session_start();
-require_once '../../database/connect.php';
-
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/connect.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/sqls/login_page_sql.php');
+//$_SESSION['Uname'] = findUserByCPF('56044447820')['user_name'];
 // Inserir a categoria "bebida"
 //createCategory("bebida");
 
@@ -60,7 +61,7 @@ createItem($productDetails3);
 createItem($productDetails4);
 createItem($productDetails5);*/
 
-$items = selectAllItems();
+$items = array($productDetails1,$productDetails2, $productDetails5);//selectAllItems();
 
 ?>
 
@@ -80,9 +81,9 @@ $items = selectAllItems();
 
 <body>
 
-	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style="background-color: #FAE9D7!important;">
+	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style="background-color: #111!important;">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Procafeinação</a>
+			<a class="navbar-brand text-white" href="#">Procafeinação</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
 				aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -90,23 +91,23 @@ $items = selectAllItems();
 			<div class="collapse navbar-collapse" id="navbarText">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Home</a>
+						<a class="nav-link active text-white" aria-current="page" href="#">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Features</a>
+						<a class="nav-link text-white" href="#">Features</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Pricing</a>
+						<a class="nav-link text-white" href="#">Pricing</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<span class="nav-link">Olá,
-							<?php echo ucfirst($_SESSION['Ufname']); ?>
+						<span class="nav-link text-white">Olá,
+							<?php echo ucfirst($_SESSION['Uname']); ?>
 						</span>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="../../logout">Sair</a>
+						<a class="nav-link text-white" href="../../logout">Sair</a>
 					</li>
 					<!--li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
