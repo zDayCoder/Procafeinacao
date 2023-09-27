@@ -94,7 +94,8 @@ if (session_status() === PHP_SESSION_ACTIVE) {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
-    <body>
+    <body style="background: url(../pages/img/cardapio.jpg) no-repeat center fixed;
+background-size: cover; " > <!--css 01-->
         <div class="auth-page-wrapper pt-5">
             <div class="container">
                 <div class="main-content">
@@ -103,16 +104,19 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                             <div class="row justify-content-center">
                                 <div class="col">
                                     <div class="row justify-content-center">
-                                        <div class="col-md-8 col-lg-6 col-xl-5">
+                                    <div class="col-md-8 col-lg-6 col-xl-5"
+                                    style="background-color: #FBF5E6; 
+                                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
+                                    0 6px 20px 0 rgba(0, 0, 0, 0.19);"> <!--css 02-->
                                             <div class="card mt-4">
 
-                                                <div class="card ">
+                                            <div class="card " style="background-color: #FFFDFA; border-radius: 5px;"> <!--css 03-->
                                                     <form method="post"> <!--action="javascript:void(0);"-->
                                                         <fieldset class="d-block">
                                                             <div class="card-header text-center">
-                                                                <h4 class="card-title mb-0 text-primary">Bem Vindo(a)</h4>
-                                                                <p style="font-size:14px; margin:4px 0px 0px 0px">Faça seu
-                                                                    login.</p>
+                                                            <h4 style="font-family: Times, serif; font-weight: bold; color:#503f20;">Bem Vindo(a)</h4> <!--css 04-->
+                                                            <p style="font-family: Times, serif; font-weight: bold; color:#83642c;">Faça seu 
+                                                                login.</p> <!--css 05-->
                                                             </div>
 
                                                             <div class="card-body">
@@ -121,7 +125,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                     <div class="col-12">
                                                                         <div class="mb-3">
                                                                             <label for="user_cpfcnpj"
-                                                                                class="form-label">CPF/CNPJ</label>
+                                                                            class="form-label" style="font-family: Times, serif; font-weight: bold; color:#503f20;">CPF/CNPJ</label> <!--css 06-->
                                                                             <input required type="text" class="form-control"
                                                                                 name="user_cpfcnpj" placeholder="Digite o CPF ou CNPJ"
                                                                                 id="user_cpfcnpj">
@@ -130,7 +134,8 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                     <div class="col-12">
                                                                         <div class="mb-3 position-relative">
                                                                             <label for="user_password"
-                                                                                class="form-label">Senha</label>
+                                                                            class="form-label" style="font-family: Times, serif; font-weight: bold; 
+                                                                            color:#503f20;">Senha</label> <!--css 07-->
                                                                             <div class="input-group">
                                                                                 <input required autocomplete="off"
                                                                                     type="password" class="form-control"
@@ -163,19 +168,21 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                     <div class="col-lg-12">
                                                                         <div class="text-right">
                                                                             <button type="submit"
-                                                                                class="btn btn-primary">Entrar</button>
+                                                                            class="btn btn-primary" style="background-color:#503f20; font-family: Times, serif; 
+                                                                            font-weight: bold; color:#e7d0a5;">Entrar</button> <!--css 08-->
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <a href="register" class="text-decoration-none">
                                                                 <div class="card-footer text-center text-muted"
-                                                                    style="background-color: #affaaa;">
-                                                                    <h6 class="card-title mb-0 text-primary">Novo por aqui?
-                                                                    </h6>
+                                                                    style="background-color: #d6bb87;"> <!--css 09-->
+                                                                    <h6  style="font-family: Times, serif; font-weight: bold; color:#776035;">Novo por aqui?
+                                                                    </h6> <!--css 10-->
                                                                     <p
-                                                                        style="text-decoration: underline;font-size:14px;margin:4px 0px 0px 0px">
-                                                                        Cadastre-se</p>
+                                                                        style="text-decoration: underline;font-size:14px;
+                                                                        margin:4px 0px 0px 0px; font-weight: bold; color:#36280e;">
+                                                                        Cadastre-se</p> <!--css 11-->
                                                                 </div>
                                                             </a>
                                                         </fieldset>
