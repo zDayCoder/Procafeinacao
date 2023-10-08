@@ -1,18 +1,18 @@
-<footer class="footer" style="bottom: 0;
+<footer class="footer d-flex align-items-center" style="bottom: 0;
   padding: 20px calc(1.5rem * 0.5);
   position: fixed;
   right: 0;
+  background-color:#815036ad;
   left: 0px;
   height: 10px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="text-center">
-                    <p class="mb-0 text-muted" style="font-size: 10px;">&copy;
+                    <p class="mb-0 text-muted" style="font-size: 12px;color:white!important">&copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script> Procafeinação. Criado por Coda Fofo <i
-                            class="bi bi-heart text-danger tl-right"></i>
+                        </script> Procafeinação. Criado por Coda Fofo <i class="bi bi-heart-fill text-danger tl-right"></i>
                     </p>
                 </div>
             </div>

@@ -17,11 +17,11 @@ li {
 }
 
 li a {
+  font-family: Verdana;
   display: block;
   color: white;
   text-align: center;
   padding: 14px 16px;
-  text-decoration: none;
 }
 
 li a:hover:not(.active) {
@@ -31,12 +31,22 @@ li a:hover:not(.active) {
 .active {
   background-color: #04AA6D;
 }
+.active:hover{
+  background-color: #000;
+}
+
+li a:hover:not(.active),.active,li a{
+  transition: 0.2s;
+  text-decoration: none !important;
+  color: white !important;
+}
+
 </style>
 
 <ul>
-<li><a href="./Procafeinacao/index.php">Home</a></li>
-  <li><a href="./acesso/register">Cadastro</a></li>
-  <li><a href="./acesso/login">Login</a></li>
-  <li style="float:right"><a class="active" href="#about">About</a></li>
+<li><a href="javascript:window.location.reload();">Início</a></li>
+  <li><a href="/TCC/Procafeinacao/acesso/register">Cadastre-se</a></li>
+  <li><a href="/TCC/Procafeinacao/acesso/login">Entrar</a></li>
+  <li style="float:right"><a class="active" href="javascript:alert('Ainda nao temos nada a exibir');">Sobre</a></li>
 </ul>
 <br><br>

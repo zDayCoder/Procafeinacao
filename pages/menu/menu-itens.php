@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/connect.php');
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/sqls/login_page_sql.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/sqls/UAC/login_uac_sql.php');
 //$_SESSION['Uname'] = findUserByCPF('56044447820')['user_name'];
 // Inserir a categoria "bebida"
 //createCategory("bebida");

@@ -1,6 +1,6 @@
 <?php
 // Inclui o arquivo de conexão com o banco de dados e cria a conexão
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/connect.php');
+$message = null;
 require_once 'consultas_uac_sql.php';
 
 function login($user, $page)
@@ -9,79 +9,101 @@ function login($user, $page)
     if ($find) {
         if ($user['user_password'] === $find['user_password']) {
             makeSession($find);
-            
+
             gotoPage($page);
             exit;
-            //gotoaPage($page);
-        }else{
-            $message = "Senha inválida.";
-            exit;
-            //gotoPage("senha errada");
-        }
-           /* if (!isBlocked($find)) {
-                updateFailedLoginAttemptsStatus($find, 0);
-                makeSession($find);
-                if ($find['is_head_manager'] >= 1) {
-                    gotoPage($page);
-                } else {
-                    gotoPage("paginacomum");
-
-                }
-            } else {
-                return isBlockedMessage($find);
-            }
         } else {
-            $message = null;
-            if (failedLoginAttempt($find)) {
-                $message = failedLoginAttemptMessage($find); // Retorna a mensagem de tentativas restantes ou bloqueio
-            }
-            if (isBlocked($find)) {
-                $message = isBlockedMessage($find);
-            }
-            return $message;
-        }*/
-    }else{
-        $message = "CPF nao registrado";
+            $message = "Senha inválida.";
+            //gotoPage("senha errada");
+            //exit;
+        }
+        /* if (!isBlocked($find)) {
+             updateFailedLoginAttemptsStatus($find, 0);
+             makeSession($find);
+             if ($find['is_head_manager'] >= 1) {
+                 gotoPage($page);
+             } else {
+                 gotoPage("paginacomum");
+
+             }
+         } else {
+             return isBlockedMessage($find);
+         }
+     } else {
+         $message = null;
+         if (failedLoginAttempt($find)) {
+             $message = failedLoginAttemptMessage($find); // Retorna a mensagem de tentativas restantes ou bloqueio
+         }
+         if (isBlocked($find)) {
+             $message = isBlockedMessage($find);
+         }
+         return $message;
+     }*/
+    } else {
+        $message = "Não foi possível encontrar uma conta associada a essas credenciais.\nVerifique se você digitou corretamente ou registre-se para criar uma nova conta.";
     }
     return $message;
 }
-/*
+
+
 function Register($user, $page)
 {
     $conn = connection();
-    $hashed_password = hash("sha512", $user['user_password']); // Precisa criar uma chave aleatória aqui
+    $cpfcnpj = ($user['user_type'] === 'C') ? $user['client_cpf'] : $user['business_cnpj'];
+    if ($user['user_type'] === 'C') {
+        $sql = "SELECT COUNT(*) FROM user u JOIN client c ON c.user_id = u.user_id WHERE c.client_cpf = ?;";
+    } else if ($user['user_type'] === 'B') {
+        $sql = "SELECT COUNT(*) FROM user u JOIN business b ON b.user_id = u.user_id WHERE b.business_cnpj = ?;";
+    }
 
-    // Verificar se o CPF já está cadastrado
-    $checkStmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE user_cpf = ?");
-    $checkStmt->bind_param("s", $user['user_cpf']);
+    $checkStmt = $conn->prepare($sql);
+    $checkStmt->bind_param("s", $cpfcnpj);
     $checkStmt->execute();
     $checkStmt->bind_result($count);
     $checkStmt->fetch();
     $checkStmt->close();
 
     if ($count > 0) {
-        // CPF já cadastrado, lançar uma exceção
         closeconn();
-        //throw new Exception();
-        return "CPF já cadastrado. Não é possível criar um novo cadastro com o mesmo CPF.";
+        $message =  "Desculpe, mas essas informações já estão registras em nosso sistema.\nPor favor, verifique seus dados ou faça login na sua conta.";
     } else {
-        // CPF não cadastrado, continue com a inserção
-        $insertStmt = $conn->prepare("INSERT INTO users (user_fullname, user_cpf, user_password) VALUES (?, ?, ?)
-    ON DUPLICATE KEY UPDATE user_cpf = user_cpf");
-        $insertStmt->bind_param("sss", $user['user_fullname'], $user['user_cpf'], $hashed_password);
-
-        // Executar a inserção e verificar se foi bem-sucedida
-        if ($insertStmt->execute()) {
-            $insertStmt->close();
-            closeconn();
-            return true;
+        // Inserir o usuário na tabela 'user'
+        $insertUserStmt = $conn->prepare("INSERT INTO user (user_name, user_password, user_type, user_email) VALUES (?, ?, ?, ?)");
+        $insertUserStmt->bind_param("ssss", $user['user_name'],  $user['user_password'], $user['user_type'], $user['user_email']);
+        
+        // $insertUserStmt = $conn->prepare("INSERT INTO user (user_name, user_password, user_type, user_email, address_id) VALUES (?, ?, ?, ?, ?)");
+        // $insertUserStmt->bind_param("ssssi", $user['user_name'],  $user['user_password'], $user['user_type'], $user['user_email'], $address_id);
+        
+    if ($insertUserStmt->execute()) {
+        // Obter o ID do usuário recém-inserido
+        $user_id = $conn->insert_id;
+        $insertUserStmt->close();
+        // Inserir dados na tabela 'client' ou 'business' com base no tipo de usuário
+        if ($user['user_type'] === 'C') {
+            $insertClientStmt = $conn->prepare("INSERT INTO client (user_id, client_cpf) VALUES (?, ?)");
+            $insertClientStmt->bind_param("is", $user_id, $user['client_cpf']);
+            $insertClientStmt->execute();
+            $insertClientStmt->close();
+        } elseif ($user['user_type'] === 'B') {
+            $insertBusinessStmt = $conn->prepare("INSERT INTO business (user_id, business_cnpj) VALUES (?, ?)");
+            $insertBusinessStmt->bind_param("is", $user_id, $user['business_cnpj']);
+            $insertBusinessStmt->execute();
+            $insertBusinessStmt->close();
         } else {
-            $insertStmt->close();
-            closeconn();
-            throw new Exception("Erro ao criar o cadastro.");
+            $message = "Tipo de usuário inválido.";
         }
+
+        closeconn();
+        gotoPage("/TCC/Procafeinacao/acesso/login");
+        return true;
+    } else {
+        $insertUserStmt->close();
+        closeconn();
+        throw new Exception("Erro ao criar o cadastro.");
     }
-}*/
+    }
+    return $message;
+}
 
 
 function isBlocked($user)
@@ -147,7 +169,7 @@ function makeSession($user)
     $_SESSION['Uname'] = $user['user_name'];
     $_SESSION['Ucpfcnpj'] = $user['user_type'] === "C" ? $user['client_cpf'] : $user['business_cnpj'];
     $_SESSION['Upassword'] = $user['user_password'];
-   // gotoPage( $_SESSION['Uname'] );
+    // gotoPage( $_SESSION['Uname'] );
 }
 function gotoPage($page)
 {
