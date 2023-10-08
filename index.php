@@ -17,11 +17,8 @@
 <body style="background: url(/TCC/Procafeinacao/pages/img/cardapio.jpg) no-repeat center fixed;
 background-size: cover; ">
     <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/header.php');
-    //require_once('./initialPage/sites/menu-itens.php');
-    //for($i = 0; $i < 1; $i++){echo "<br>";}?>
-    <!--form method="post">
-    <input type="submit" value="enviar"/>
-    </form--> <br> <br><br><br>
+    ?>
+    
     <!-- <a href="https://preview.themeforest.net/item/koffe-cafe-coffee-shop-template-kit/full_screen_preview/26300402" target="_blank">Site referencia</a> -->
 
 

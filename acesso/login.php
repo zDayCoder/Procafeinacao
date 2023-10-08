@@ -5,7 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/sqls/UAC/l
 if (session_status() === PHP_SESSION_ACTIVE) {
     if (!empty($_SESSION) && isset($_SESSION['Ucpfcnpj'])) {
         if (isset($_SESSION['Ucpfcnpj']) && isset($_SESSION['Upassword'])) {
-            session_destroy();
             $user_cpfcnpj = $_SESSION['Ucpfcnpj'];
             $user_password = $_SESSION['Upassword'];
             $base_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";

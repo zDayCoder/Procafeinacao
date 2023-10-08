@@ -12,7 +12,7 @@
                     <p class="mb-0 text-muted" style="font-size: 12px;color:white!important">&copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>Procafeinação. Criado por Coda Fofo<i class="bi bi-heart-fill text-danger tl-right"></i>
+                        </script> Procafeinação. Criado por Coda Fofo <i class="bi bi-heart-fill text-danger tl-right"></i>
                     </p>
                 </div>
             </div>
