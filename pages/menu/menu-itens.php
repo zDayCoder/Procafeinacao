@@ -87,47 +87,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
 			<body>
 
-				<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" style="background-color: #111!important;">
-					<div class="container-fluid">
-						<a class="navbar-brand text-white" href="#">Procafeinação</a>
-						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-							aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarText">
-							<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-								<li class="nav-item">
-									<a class="nav-link active text-white" aria-current="page" href="#">Home</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link text-white" href="#">Features</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link text-white" href="#">Pricing</a>
-								</li>
-							</ul>
-							<ul class="navbar-nav ml-auto">
-								<li class="nav-item">
-									<span class="nav-link text-white">Olá,
-										<?php echo ucfirst($_SESSION['Uname']); ?>
-									</span>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link text-white" href="../../logout">Sair</a>
-								</li>
-								<!--li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Opções
-					</a>
-					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a class="dropdown-item" href="../../logout">Sair</a></li>
-					</ul>
-					</li-->
-							</ul>
-						</div>
-					</div>
-					<hr />
-				</nav>
+				<?php require($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/parts/header.php'); ?>
 
 				<?php for ($i = 0; $i < 20; $i++) { ?>
 					<div class="container" style="margin-top: 5em;">

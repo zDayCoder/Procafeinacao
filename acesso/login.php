@@ -74,7 +74,9 @@ if (session_status() === PHP_SESSION_ACTIVE) {
         <title>Entrar</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="/TCC/Procafeinacao/assets/css/style.css">
         <style>
             @font-face {
                 font-family: "generic";
@@ -82,10 +84,11 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                 /* Inclua outros formatos de fonte, se necessário */
             }
         </style>
+
     </head>
 
     <body style="background: url(../pages/img/cardapio.jpg) no-repeat center fixed;
-background-size: cover;"> <!--css 01-->
+background-size: cover;">
         <div class="auth-page-wrapper pt-5">
             <div class="container">
                 <div class="main-content">
@@ -96,21 +99,20 @@ background-size: cover;"> <!--css 01-->
                                     <div class="row justify-content-center">
                                         <div class="col-md-8 col-lg-6 col-xl-5" style="background-color: #FBF5E6; 
                                     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
-                                    0 6px 20px 0 rgba(0, 0, 0, 0.19);"> <!--css 02-->
+                                    0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                             <div class="card mt-4">
 
                                                 <div class="card " style="background-color: #FFFDFA; border-radius: 5px;">
-                                                    <!--css 03-->
-                                                    <form method="post"> <!--action="javascript:void(0);"-->
+                                                    <form method="post">
                                                         <fieldset class="d-block">
                                                             <div class="card-header text-center">
                                                                 <h4
                                                                     style="font-family: 'generic'; font-weight: bold; color:#503f20;">
-                                                                    Bem Vindo(a)</h4> <!--css 04-->
+                                                                    Bem Vindo(a)</h4>
                                                                 <p
                                                                     style="font-family: 'generic'; font-weight: bold; color:#83642c;">
                                                                     Faça seu
-                                                                    login.</p> <!--css 05-->
+                                                                    login.</p>
                                                             </div>
 
                                                             <div class="card-body">
@@ -120,10 +122,10 @@ background-size: cover;"> <!--css 01-->
                                                                         <div class="mb-3">
                                                                             <label for="user_cpfcnpj" class="form-label"
                                                                                 style="font-family: 'generic'; font-weight: bold; color:#503f20;">CPF/CNPJ</label>
-                                                                            <!--css 06-->
-                                                                            <input required type="text" class="form-control"
-                                                                                name="user_cpfcnpj"
+                                                                            <input required type="number"
+                                                                                class="form-control" name="user_cpfcnpj"
                                                                                 placeholder="Digite o CPF ou CNPJ"
+                                                                                onKeyPress="if(this.value.length>=14) return false;"
                                                                                 id="user_cpfcnpj">
                                                                         </div>
                                                                     </div>
@@ -131,7 +133,7 @@ background-size: cover;"> <!--css 01-->
                                                                         <div class="mb-3 position-relative">
                                                                             <label for="user_password" class="form-label"
                                                                                 style="font-family: 'generic'; font-weight: bold; 
-                                                                            color:#503f20;">Senha</label> <!--css 07-->
+                                                                            color:#503f20;">Senha</label>
                                                                             <div class="input-group">
                                                                                 <input required autocomplete="off"
                                                                                     type="password" class="form-control"
@@ -150,9 +152,25 @@ background-size: cover;"> <!--css 01-->
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="col-12">
+                                                                        <div class="mb-3">
+                                                                            <div id="capsLockWarning" class="text-danger"
+                                                                                style="display: none;">Caps Lock está
+                                                                                ativado.</div>
+                                                                        </div>
+                                                                        <script>
+                                                                            // Adicionar evento de verificação do Caps Lock
+                                                                            $('#user_password, #user_cpfcnpj').on('keydown', function (e) {
+                                                                                var capsLockWarning = document.getElementById('capsLockWarning');
+                                                                                var isCapsLockOn = e.originalEvent.getModifierState('CapsLock');
+                                                                                capsLockWarning.style.display = isCapsLockOn ? 'block' : 'none';
+                                                                            });
+                                                                        </script>
+                                                                    </div>
                                                                     <?php if ($message != null) { ?>
                                                                         <div class="mt-2">
-                                                                            <div class="alert alert-danger" style="font-size:14px" role="alert">
+                                                                            <div class="alert alert-danger"
+                                                                                style="font-size:14px" role="alert">
                                                                                 <?php $messageLines = explode("\n", $message);
                                                                                 foreach ($messageLines as $line) {
                                                                                     echo $line . "<br>";
@@ -166,22 +184,21 @@ background-size: cover;"> <!--css 01-->
                                                                             <button type="submit" class="btn btn-primary"
                                                                                 style="background-color:#503f20; font-family: 'generic'; 
                                                                             font-weight: bold; color:#e7d0a5;">Entrar</button>
-                                                                            <!--css 08-->
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <a href="register" class="text-decoration-none">
                                                                 <div class="card-footer text-center text-muted"
-                                                                    style="background-color: #d6bb87;"> <!--css 09-->
+                                                                    style="background-color: #d6bb87;">
                                                                     <h6
                                                                         style="font-family: 'generic'; font-weight: bold; color:#776035;">
                                                                         Novo por aqui?
-                                                                    </h6> <!--css 10-->
+                                                                    </h6>
                                                                     <p
                                                                         style="font-family: 'generic';text-decoration: underline;font-size:14px;
                                                                         margin:4px 0px 0px 0px; font-weight: bold; color:#36280e;">
-                                                                        Cadastre-se</p> <!--css 11-->
+                                                                        Cadastre-se</p>
                                                                 </div>
                                                             </a>
                                                         </fieldset>
@@ -189,7 +206,8 @@ background-size: cover;"> <!--css 01-->
                                                 </div>
 
                                             </div>
-                                            <a href="javascript:window.location.href=('https://pbs.twimg.com/media/F4YayJPWgAEkwoO?format=jpg&name=small')" class="text-decoration-none">
+                                            <a href="javascript:window.location.href=('https://pbs.twimg.com/media/F4YayJPWgAEkwoO?format=jpg&name=small')"
+                                                class="text-decoration-none">
                                                 <div class="text-center text-muted">
                                                     <p
                                                         style="text-decoration: underline;font-size:12px;margin:14px 0px 0px 0px; padding: 8px;">

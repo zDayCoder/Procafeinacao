@@ -8,9 +8,14 @@ function login($user, $page)
     $find = $user['user_type'] === "C" ? findUserByCPF($user['client_cpf']) : findUserByCNPJ($user['business_cnpj']);
     if ($find) {
         if ($user['user_password'] === $find['user_password']) {
-            makeSession($find);
-
-            gotoPage($page);
+            
+            if (empty($find['address_id']) || $find['address_id'] === null) {
+                makeSession($find);
+                gotoPage('/TCC/Procafeinacao/acesso/complete_register');
+            } else {
+                makeSession($find);
+                gotoPage($page);
+            }
             exit;
         } else {
             $message = "Senha inválida.";
@@ -65,42 +70,42 @@ function Register($user, $page)
 
     if ($count > 0) {
         closeconn();
-        $message =  "Desculpe, mas essas informações já estão registras em nosso sistema.\nPor favor, verifique seus dados ou faça login na sua conta.";
+        $message = "Desculpe, mas essas informações já estão registras em nosso sistema.\nPor favor, verifique seus dados ou faça login na sua conta.";
     } else {
         // Inserir o usuário na tabela 'user'
         $insertUserStmt = $conn->prepare("INSERT INTO user (user_name, user_password, user_type, user_email) VALUES (?, ?, ?, ?)");
-        $insertUserStmt->bind_param("ssss", $user['user_name'],  $user['user_password'], $user['user_type'], $user['user_email']);
-        
+        $insertUserStmt->bind_param("ssss", $user['user_name'], $user['user_password'], $user['user_type'], $user['user_email']);
+
         // $insertUserStmt = $conn->prepare("INSERT INTO user (user_name, user_password, user_type, user_email, address_id) VALUES (?, ?, ?, ?, ?)");
         // $insertUserStmt->bind_param("ssssi", $user['user_name'],  $user['user_password'], $user['user_type'], $user['user_email'], $address_id);
-        
-    if ($insertUserStmt->execute()) {
-        // Obter o ID do usuário recém-inserido
-        $user_id = $conn->insert_id;
-        $insertUserStmt->close();
-        // Inserir dados na tabela 'client' ou 'business' com base no tipo de usuário
-        if ($user['user_type'] === 'C') {
-            $insertClientStmt = $conn->prepare("INSERT INTO client (user_id, client_cpf) VALUES (?, ?)");
-            $insertClientStmt->bind_param("is", $user_id, $user['client_cpf']);
-            $insertClientStmt->execute();
-            $insertClientStmt->close();
-        } elseif ($user['user_type'] === 'B') {
-            $insertBusinessStmt = $conn->prepare("INSERT INTO business (user_id, business_cnpj) VALUES (?, ?)");
-            $insertBusinessStmt->bind_param("is", $user_id, $user['business_cnpj']);
-            $insertBusinessStmt->execute();
-            $insertBusinessStmt->close();
-        } else {
-            $message = "Tipo de usuário inválido.";
-        }
 
-        closeconn();
-        gotoPage("/TCC/Procafeinacao/acesso/login");
-        return true;
-    } else {
-        $insertUserStmt->close();
-        closeconn();
-        throw new Exception("Erro ao criar o cadastro.");
-    }
+        if ($insertUserStmt->execute()) {
+            // Obter o ID do usuário recém-inserido
+            $user_id = $conn->insert_id;
+            $insertUserStmt->close();
+            // Inserir dados na tabela 'client' ou 'business' com base no tipo de usuário
+            if ($user['user_type'] === 'C') {
+                $insertClientStmt = $conn->prepare("INSERT INTO client (user_id, client_cpf) VALUES (?, ?)");
+                $insertClientStmt->bind_param("is", $user_id, $user['client_cpf']);
+                $insertClientStmt->execute();
+                $insertClientStmt->close();
+            } elseif ($user['user_type'] === 'B') {
+                $insertBusinessStmt = $conn->prepare("INSERT INTO business (user_id, business_cnpj) VALUES (?, ?)");
+                $insertBusinessStmt->bind_param("is", $user_id, $user['business_cnpj']);
+                $insertBusinessStmt->execute();
+                $insertBusinessStmt->close();
+            } else {
+                $message = "Tipo de usuário inválido.";
+            }
+
+            closeconn();
+            gotoPage("/TCC/Procafeinacao/acesso/login");
+            return true;
+        } else {
+            $insertUserStmt->close();
+            closeconn();
+            throw new Exception("Erro ao criar o cadastro.");
+        }
     }
     return $message;
 }

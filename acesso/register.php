@@ -62,7 +62,9 @@ if (session_status() === PHP_SESSION_ACTIVE) {
         <title>Registrar</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="/TCC/Procafeinacao/assets/css/style.css">
         <style>
             @font-face {
                 font-family: "generic";
@@ -84,7 +86,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                     <div class="row justify-content-center">
                                         <div class="col-md-8 col-lg-6 col-xl-5" style="background-color: #FBF5E6; 
                                         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
-                                        0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 30px;"> <!--css 02-->
+                                        0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-bottom: 30px;">
                                             <div class="card mt-4">
 
                                                 <div class="card " style="background-color: #FFFDFA; border-radius: 5px;">
@@ -93,7 +95,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                             background-color: rgba(54, 22, 11, 0.966);
                                                         }
                                                     </style>
-                                                    <form method="post"> <!--action="javascript:void(0);"-->
+                                                    <form method="post">
                                                         <div class="card-header m-0 p-0" style="overflow:hidden">
                                                             <div class="row" id="change">
                                                                 <h4 class="card-title mb-0 w-50 text-primary text-center p-2 tab selected"
@@ -114,7 +116,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
 
                                                         <fieldset id="cliente" class="d-block tab-content">
-                                                        <input type="hidden" value="C" name="user_type" />
+                                                            <input type="hidden" value="C" name="user_type" />
                                                             <div class="card-body">
 
                                                                 <div class="row">
@@ -137,6 +139,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                             <input required type="text" class="form-control"
                                                                                 name="user_cpfcnpj"
                                                                                 placeholder="Digite seu CPF"
+                                                                                onKeyPress="if(this.value.length>=11) return false;"
                                                                                 id="user_cpfcnpj">
                                                                         </div>
                                                                     </div>
@@ -174,6 +177,21 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="col-12">
+                                                                        <div class="mb-3">
+                                                                            <div id="capsLockWarning" class="text-danger"
+                                                                                style="display: none;">Caps Lock está
+                                                                                ativado.</div>
+                                                                        </div>
+                                                                        <script>
+                                                                            // Adicionar evento de verificação do Caps Lock
+                                                                            $('#user_password').on('keydown', function (e) {
+                                                                                var capsLockWarning = document.getElementById('capsLockWarning');
+                                                                                var isCapsLockOn = e.originalEvent.getModifierState('CapsLock');
+                                                                                capsLockWarning.style.display = isCapsLockOn ? 'block' : 'none';
+                                                                            });
+                                                                        </script>
+                                                                    </div>
                                                                     <?php if ($message != null && $user_type === 'C') { ?>
                                                                         <div class="mt-2">
                                                                             <div class="alert alert-danger"
@@ -191,7 +209,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                             <button type="submit" class="btn btn-primary"
                                                                                 style="background-color:#503f20; 
                                                                                 font-family: 'generic'; font-weight: bold; color:#e7d0a5;">
-                                                                                Cadastrar</button> <!--css 10-->
+                                                                                Cadastrar</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -224,6 +242,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                             <input required type="text" class="form-control"
                                                                                 name="user_cpfcnpj"
                                                                                 placeholder="Digite o CNPJ"
+                                                                                onKeyPress="if(this.value.length>=14) return false;"
                                                                                 id="user_cpfcnpj">
                                                                         </div>
                                                                     </div>
@@ -261,6 +280,21 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="mb-3">
+                                                                            <div id="capsLockWarning" class="text-danger"
+                                                                                style="display: none;">Caps Lock está
+                                                                                ativado.</div>
+                                                                        </div>
+                                                                        <script>
+                                                                            // Adicionar evento de verificação do Caps Lock
+                                                                            $('#user_password').on('keydown', function (e) {
+                                                                                var capsLockWarning = document.getElementById('capsLockWarning');
+                                                                                var isCapsLockOn = e.originalEvent.getModifierState('CapsLock');
+                                                                                capsLockWarning.style.display = isCapsLockOn ? 'block' : 'none';
+                                                                            });
+                                                                        </script>
                                                                     </div>
                                                                     <?php if ($message != null && $user_type === 'B') { ?>
                                                                         <div class="mt-2">
