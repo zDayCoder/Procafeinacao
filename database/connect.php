@@ -12,7 +12,7 @@ function error($attb1, $attb2, $attb3)
     $expiringTime = time() + 10;
     setcookie('hidden_message', $jsonData, $expiringTime);
     $base_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
-    $page = $base_url . "/TCC/Procafeinacao/error";
+    $page = $base_url . "/TCC/Procafeinacao/utils/error";
     header("Location: " . $page);
     exit;
 }
@@ -70,7 +70,8 @@ function createTables()
     createTableUser();
     createTableCliente();
     createTableEmpresa();
-    createTableHorarioFuncionamento();
+    createTableDataFuncionamento();
+    createTableHorasFuncionamento();
     createTableCategoria();
     createTableAdicional();
     createTableItem();
@@ -197,15 +198,35 @@ function createTableEmpresa()
     }
 }
 
-function createTableHorarioFuncionamento()
+function createTableDataFuncionamento()
+{
+    $conn = connection();
+    $createTable = "CREATE TABLE IF NOT EXISTS opening_date (
+        opening_date_id INT AUTO_INCREMENT PRIMARY KEY,
+        opening_date_day ENUM('Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo') NOT NULL,
+        business_id INT NOT NULL,
+        FOREIGN KEY (business_id) REFERENCES business(user_id)    
+    )";
+
+    if ($conn->query($createTable) === TRUE) {
+        closeconn();
+        return true;
+    } else {
+        error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'opening_date'");
+        closeconn();
+        return false; // Erro ao criar tabela
+    }
+}
+
+function createTableHorasFuncionamento()
 {
     $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS opening_hours (
         opening_hours_id INT AUTO_INCREMENT PRIMARY KEY,
-        opening_hours_days BIGINT(11) NOT NULL,
-        opening_hours_time_day DATE NOT NULL,
-        business_id INT NOT NULL,
-        FOREIGN KEY (business_id) REFERENCES business(user_id)
+        opening_date_id INT NOT NULL,
+        opening_hours_start_hour TIME NOT NULL,
+        opening_hours_end_hour TIME NOT NULL,
+        FOREIGN KEY (opening_date_id) REFERENCES opening_date(opening_date_id)
     )";
 
     if ($conn->query($createTable) === TRUE) {

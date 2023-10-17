@@ -339,7 +339,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                                         <label for="daysOfWeek" class="form-label"
                                                                                             style="font-family: 'generic'; font-weight: bold; color:#503f20;">Dias
                                                                                             da semana</label>
-                                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                                        <div class="checkbox-group">
                                                                                             <label class="btn btn-secondary">
                                                                                                 <input type="checkbox" name="daysOfWeek[]"
                                                                                                     value="Segunda-feira"> Segunda-feira
@@ -370,20 +370,55 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
+
+
                                                                                     <div class="mb-3">
-                                                                                        <label for="openingTimes" class="form-label"
-                                                                                            style="font-family: 'generic'; font-weight; bold; color:#503f20;">Horários
-                                                                                            de abertura</label>
-                                                                                        <input type="text" class="form-control"
-                                                                                            name="openingTimes[]">
+
+
+                                                                                        <div class="row">
+                                                                                            <div class="col-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label for="abertura_segunda"
+                                                                                                        style="display: none;">Horário de
+                                                                                                        Abertura (Segunda-feira)</label>
+                                                                                                    <input type="text" class="form-control"
+                                                                                                        name="abertura_segunda"
+                                                                                                        id="abertura_segunda"
+                                                                                                        style="display: none;">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-6">
+                                                                                                <div class="form-group">
+                                                                                                    <label for="fechamento_segunda"
+                                                                                                        style="display: none;">Horário de
+                                                                                                        Fechamento (Segunda-feira)</label>
+                                                                                                    <input type="text" class="form-control"
+                                                                                                        name="fechamento_segunda"
+                                                                                                        id="fechamento_segunda"
+                                                                                                        style="display: none;">
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="mb-3">
-                                                                                        <label for="closingTimes" class="form-label"
-                                                                                            style="font-family: 'generic'; font-weight: bold; color:#503f20;">Horários
-                                                                                            de fechamento</label>
-                                                                                        <input type="text" class="form-control"
-                                                                                            name="closingTimes[]">
-                                                                                    </div>
+                                                                                    <script>
+                                                                                        $(document).ready(function () {
+    $('input[name="daysOfWeek[]"]').change(function () {
+        var day = $(this).val();
+        var aberturaInput = $('.abertura');
+        var fechamentoInput = $('.fechamento');
+
+        if ($(this).is(':checked')) {
+            aberturaInput.show();
+            fechamentoInput.show();
+        } else {
+            aberturaInput.hide();
+            fechamentoInput.hide();
+        }
+    });
+});
+
+                                                                                    </script>
 
                                                                                     <!-- Arrumando -->
 
