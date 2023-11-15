@@ -1,0 +1,147 @@
+
+.capa {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+
+h1 {
+  font-family: var(--font-jost);
+  position: relative;
+  font-size: 100px;
+  margin-top: 10%;
+  margin-left: -120px;
+  left: 100px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+
+.cafe {
+  position: relative;
+  top: 198px;
+  left: 500px;
+  border-radius: var(--br-129xl-5);
+  width: 20%;
+  height: auto;
+  object-fit: cover;
+}
+
+.botao {
+  position: relative;
+  top: 328px;
+  left: 230px;
+  border-radius: var(--br-129xl-5);
+  width: 20%;
+  height: auto;
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+@media screen and (max-width: 1200px) {
+  h1{
+    font-size: 80px;
+  }
+
+  .cafe {
+    width: 25%;
+    left: 400px;
+  }
+
+  .botao {
+    position: relative;
+    top: 328px;
+    left: 120px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  h1{
+    font-size: 60px;
+  }
+
+  .cafe {
+    width: 30%;
+    left: 300px;
+  }
+
+  .botao {
+    position: relative;
+    top: 328px;
+    left: 60px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  h1{
+    font-size: 40px;
+  }
+
+  .cafe {
+    width: 40%;
+    top: 250px;
+    left: 100px;
+  }
+
+  .botao {
+    position: relative;
+    top: 450px;
+    left: -70px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  h1{
+    font-size: 20px;
+    color: #81503600;
+  }
+
+  .cafe {
+    width: 50%;
+    top: 150px;
+    left: 100px;
+  }
+
+  .botao {
+    position: relative;
+    top: 328px;
+    left: -90px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  h1{
+    font-size: 20px;
+    color: #81503600;
+  }
+
+  .cafe {
+    width: 50%;
+    top: 750px;
+    left: 100px;
+  }
+
+  .botao {
+    position:relative;
+    top: 850px;
+    left: -50px;
+  }
+}
+
+

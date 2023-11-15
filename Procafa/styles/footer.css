@@ -1,0 +1,23 @@
+.footer{
+    bottom: 0;
+    padding: 20px calc(1.5rem * 0.5);
+    position: relative;
+    right: 0;
+    background-color:#815036ad;
+    left: 0px;
+    height: 10px;
+}
+
+@media screen and (max-width: 450px) {
+    
+    .footer{
+        top: 200px;
+        padding: 20px calc(1.5rem * 0.5);
+        position: relative;
+        right: 0;
+        background-color:#815036ad;
+        left: 0px;
+        height: 10px;
+    }
+
+  }

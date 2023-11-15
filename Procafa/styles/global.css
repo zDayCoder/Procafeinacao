@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+
+:root {
+  /* fonts */
+  --font-jost: Jost;
+
+  /* Border radiuses */
+  --br-129xl-5: 148.5px;
+}
