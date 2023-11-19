@@ -23,7 +23,7 @@ function connection()
     $password = "";
 
     $dbname = createDatabase(new mysqli($servername, $username, $password), "if0_35034372_procafedb");
-    
+
     try {
         global $conn;
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -68,6 +68,7 @@ function createTables()
 {
     createTableEndereco();
     createTableUser();
+    createTableUserPhotos();
     createTableCliente();
     createTableEmpresa();
     createTableDataFuncionamento();
@@ -110,7 +111,7 @@ function createTableEndereco()
         closeconn();
         return false; // Erro ao criar tabela
     }
-    
+
 }
 /*
 function createTableUser()
@@ -144,9 +145,8 @@ function createTableUser()
         user_password VARCHAR(128) NOT NULL,
         user_phone VARCHAR(11) DEFAULT NULL,
         user_email VARCHAR(120) NOT NULL,
-        user_photo MEDIUMBLOB DEFAULT NULL,
         user_type CHAR NOT NULL DEFAULT 'C',
-        address_id INT NOT NULL,
+        address_id INT DEFAULT NULL,
         FOREIGN KEY (address_id) REFERENCES address(address_id)
     )";
 
@@ -157,6 +157,27 @@ function createTableUser()
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'user'");
         closeconn();
         return false; // Erro ao criar tabela
+    }
+}
+
+function createTableUserPhotos()
+{
+    $conn = connection();
+    $createTable = "CREATE TABLE IF NOT EXISTS user_photo (
+    user_photo_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    user_photo_name VARCHAR(255) NOT NULL,
+    user_photo_type VARCHAR(100) NOT NULL,
+    user_photo_data MEDIUMBLOB,
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    )";
+
+    if ($conn->query($createTable) === TRUE) {
+        closeconn();
+        return true;
+    } else {
+        closeconn();
+        throw new Exception("Erro ao criar tabela 'user_photo'");
     }
 }
 
@@ -305,7 +326,7 @@ function createTableItemAdicional()
         item_id INT NOT NULL,
         aditional_id INT NOT NULL,
         PRIMARY KEY (item_id, aditional_id),
-        FOREIGN KEY (item_id) REFERENCES item(item_id),
+        FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE CASCADE,
         FOREIGN KEY (aditional_id) REFERENCES aditional(aditional_id)
     )";
 
@@ -324,9 +345,12 @@ function createTableMenu()
     $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS menu (
         menu_id INT AUTO_INCREMENT PRIMARY KEY,
+        item_id INT NOT NULL,
         business_id INT NOT NULL,
-        FOREIGN KEY (business_id) REFERENCES business(user_id)
+        FOREIGN KEY (business_id) REFERENCES business(user_id),
+        FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE CASCADE
     )";
+    
 
     if ($conn->query($createTable) === TRUE) {
         closeconn();
