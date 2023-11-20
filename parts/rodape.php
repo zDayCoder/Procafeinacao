@@ -11,11 +11,8 @@
                 <div class="text-center">
                 
                     <p class="mb-0 text-muted" style="font-size: 12px;color:white!important">&copy;
-                        <script>
-                            <?php date_default_timezone_set('America/Sao_Paulo');
-echo date("Y");?>
-                            document.write(new Date().getFullYear())
-                        </script> Procafeinação. Desenvolvido por Coda Fofo <i class="bi bi-heart-fill text-danger tl-right"></i>
+                        <?php date_default_timezone_set('America/Sao_Paulo'); 
+                            echo date("Y");?> Procafeinação. Desenvolvido por Coda Fofo <i class="bi bi-heart-fill text-danger tl-right"></i>
                     </p>
                 </div>
             </div>

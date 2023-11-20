@@ -68,96 +68,100 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 		$user_id = $_SESSION['UID'];
 		$user = findUserByID($user_id);
 		if ($user) {
-			//if ($user['is_blocked'] === 0 && $user['acesso'] !== "CLIENTE") {
-			?>
+			if (!empty($user['address_id']) || $user['address_id'] !== null) {
+				//if ($user['is_blocked'] === 0 && $user['acesso'] !== "CLIENTE") {
+				?>
 
-			<!DOCTYPE html>
-			<html lang="pt-br">
+				<!DOCTYPE html>
+				<html lang="pt-br">
 
-			<head>
-				<meta charset="UTF-8">
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<title>Cardápio</title>
-				<!-- Adicione o link para o Bootstrap CSS -->
-				<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js""></script>
-							<link href=" ../css/style.css" rel="stylesheet" type="text/css" />
-				<link href="../css/menu.css" rel="stylesheet" type="text/css">
-			</head>
+				<head>
+					<meta charset="UTF-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title>Cardápio</title>
+					<!-- Adicione o link para o Bootstrap CSS -->
+					<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+					<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js""></script>
+											<link href=" ../css/style.css" rel="stylesheet" type="text/css" />
+					<link href="../css/menu.css" rel="stylesheet" type="text/css">
+				</head>
 
-			<body>
+				<body>
 
-				<?php require($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/parts/header.php'); ?>
+					<?php require($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/parts/header.php'); ?>
 
-				<?php for ($i = 0; $i < 20; $i++) { ?>
-					<div class="container" style="margin-top: 5em;">
-						<div class="row">
-							<div class="col-md-6">
-								<h3 class="mb-4">Bebidas</h3>
-								<table class="table table-striped">
-									<thead>
-										<tr>
-											<th>Nome</th>
-											<th>Preço</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php foreach ($items as $item): ?>
-											<?php if ($item['category_id'] == 1): ?>
-												<tr>
-													<td>
-														<h4 class="mb-0">
-															<?php echo $item['product_name']; ?>
-														</h4>
-													</td>
-													<td>
-														<h4 class="mb-0">R$
-															<?php echo str_replace(".", ",", $item['price']); ?>
-														</h4>
-													</td>
-												</tr>
-											<?php endif; ?>
-										<?php endforeach; ?>
-									</tbody>
-								</table>
-							</div>
-							<div class="col-md-6">
-								<h3 class="mb-4">Comidas</h3>
-								<table class="table table-striped">
-									<thead>
-										<tr>
-											<th>Nome</th>
-											<th>Preço</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php foreach ($items as $item): ?>
-											<?php if ($item['category_id'] == 2): ?>
-												<tr>
-													<td>
-														<h4 class="mb-0">
-															<?php echo $item['product_name']; ?>
-														</h4>
-													</td>
-													<td>
-														<h4 class="mb-0">R$
-															<?php echo str_replace(".", ",", $item['price']); ?>
-														</h4>
-													</td>
-												</tr>
-											<?php endif; ?>
-										<?php endforeach; ?>
-									</tbody>
-								</table>
+					<?php for ($i = 0; $i < 20; $i++) { ?>
+						<div class="container" style="margin-top: 5em;">
+							<div class="row">
+								<div class="col-md-6">
+									<h3 class="mb-4">Bebidas</h3>
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>Nome</th>
+												<th>Preço</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php foreach ($items as $item): ?>
+												<?php if ($item['category_id'] == 1): ?>
+													<tr>
+														<td>
+															<h4 class="mb-0">
+																<?php echo $item['product_name']; ?>
+															</h4>
+														</td>
+														<td>
+															<h4 class="mb-0">R$
+																<?php echo str_replace(".", ",", $item['price']); ?>
+															</h4>
+														</td>
+													</tr>
+												<?php endif; ?>
+											<?php endforeach; ?>
+										</tbody>
+									</table>
+								</div>
+								<div class="col-md-6">
+									<h3 class="mb-4">Comidas</h3>
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>Nome</th>
+												<th>Preço</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php foreach ($items as $item): ?>
+												<?php if ($item['category_id'] == 2): ?>
+													<tr>
+														<td>
+															<h4 class="mb-0">
+																<?php echo $item['product_name']; ?>
+															</h4>
+														</td>
+														<td>
+															<h4 class="mb-0">R$
+																<?php echo str_replace(".", ",", $item['price']); ?>
+															</h4>
+														</td>
+													</tr>
+												<?php endif; ?>
+											<?php endforeach; ?>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
-					</div>
-				<?php } ?>
-			</body>
+					<?php } ?>
+				</body>
 
-			</html>
+				</html>
 
-		<?php } else {
+			<?php } else {
+				header("Location: /TCC/Procafeinacao/acesso/login");
+			}
+		} else {
 			header("Location: /TCC/Procafeinacao/acesso/login");
 		}
 	} else {

@@ -93,6 +93,9 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+                    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+                    <script src="/TCC/Procafeinacao/acesso/js/validate_data.js"></script>
                     <link rel="stylesheet" href="/TCC/Procafeinacao/assets/css/style.css">
                     <style>
                         @font-face {
@@ -119,7 +122,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                         <div class="card mt-4">
 
                                                             <div class="card " style="background-color: #FFFDFA; border-radius: 5px;">
-                                                                <form method="post">
+                                                                <form method="post" id="form">
                                                                     <fieldset class="d-block">
                                                                         <div class="card-header">
                                                                             <div class="text-center">
@@ -297,108 +300,16 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
                                                                                 <div class="col-lg-12">
                                                                                     <div class="text-right">
-                                                                                        <?php if ($user['user_type'] === 'C'): ?>
-                                                                                            <button type="submit" class="btn btn-primary"
-                                                                                                style="background-color:#503f20; 
+                                                                                        <button type="button" class="btn btn-primary btn-submit"
+                                                                                            style="background-color:#503f20; 
                                                                                 font-family: 'generic'; font-weight: bold; color:#e7d0a5;">
-                                                                                                Cadastrar</button>
-                                                                                        <?php else: ?>
-                                                                                            <button type="button"
-                                                                                                class="btn btn-primary next-form"
-                                                                                                style="background-color:#503f20; 
-                                                                                font-family: 'generic'; font-weight: bold; color:#e7d0a5;">
-                                                                                                Próximo</button>
-                                                                                        <?php endif; ?>
+                                                                                            Cadastrar</button>
                                                                                     </div>
                                                                                 </div>
 
                                                                             </div>
                                                                         </div>
                                                                     </fieldset>
-
-                                                                    <?php if ($user['user_type'] === 'B'): ?>
-
-                                                                        <fieldset class="d-block">
-                                                                            <div class="card-header">
-                                                                                <div class="text-center">
-                                                                                    <h4
-                                                                                        style="font-family: 'generic'; font-weight: bold; color:#503f20;">
-                                                                                        Defina seus horários</h4>
-                                                                                    <p
-                                                                                        style="font-family: 'generic'; font-weight: bold; color:#83642c;">
-                                                                                        Informe seus horários de trabalho.
-                                                                                    </p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card-body">
-
-                                                                                <div class="row">
-                                                                                    <!-- Arrumando -->
-
-                                                                                    <div class="mb-3">
-                                                                                        <label for="daysOfWeek" class="form-label"
-                                                                                            style="font-family: 'generic'; font-weight: bold; color:#503f20;">Dias
-                                                                                            da semana</label>
-                                                                                        <div class="btn-group" data-toggle="buttons">
-                                                                                            <label class="btn btn-secondary">
-                                                                                                <input type="checkbox" name="daysOfWeek[]"
-                                                                                                    value="Segunda-feira"> Segunda-feira
-                                                                                            </label>
-                                                                                            <label class="btn btn-secondary">
-                                                                                                <input type="checkbox" name="daysOfWeek[]"
-                                                                                                    value="Terça-feira"> Terça-feira
-                                                                                            </label>
-                                                                                            <label class="btn btn-secondary">
-                                                                                                <input type="checkbox" name="daysOfWeek[]"
-                                                                                                    value="Quarta-feira"> Quarta-feira
-                                                                                            </label>
-                                                                                            <label class="btn btn-secondary">
-                                                                                                <input type="checkbox" name="daysOfWeek[]"
-                                                                                                    value="Quinta-feira"> Quinta-feira
-                                                                                            </label>
-                                                                                            <label class="btn btn-secondary">
-                                                                                                <input type="checkbox" name="daysOfWeek[]"
-                                                                                                    value="Sexta-feira"> Sexta-feira
-                                                                                            </label>
-                                                                                            <label class="btn btn-secondary">
-                                                                                                <input type="checkbox" name="daysOfWeek[]"
-                                                                                                    value="Sábado"> Sábado
-                                                                                            </label>
-                                                                                            <label class="btn btn-secondary">
-                                                                                                <input type="checkbox" name="daysOfWeek[]"
-                                                                                                    value="Domingo"> Domingo
-                                                                                            </label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="mb-3">
-                                                                                        <label for="openingTimes" class="form-label"
-                                                                                            style="font-family: 'generic'; font-weight; bold; color:#503f20;">Horários
-                                                                                            de abertura</label>
-                                                                                        <input type="text" class="form-control"
-                                                                                            name="openingTimes[]">
-                                                                                    </div>
-                                                                                    <div class="mb-3">
-                                                                                        <label for="closingTimes" class="form-label"
-                                                                                            style="font-family: 'generic'; font-weight: bold; color:#503f20;">Horários
-                                                                                            de fechamento</label>
-                                                                                        <input type="text" class="form-control"
-                                                                                            name="closingTimes[]">
-                                                                                    </div>
-
-                                                                                    <!-- Arrumando -->
-
-                                                                                    <div class="col-lg-12">
-                                                                                        <div class="text-right">
-                                                                                            <button type="submit" class="btn btn-primary"
-                                                                                                style="background-color:#503f20;font-family: 'generic'; font-weight: bold; color:#e7d0a5;">
-                                                                                                Cadastrar</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </fieldset>
-
-                                                                    <?php endif; ?>
 
                                                                 </form>
 

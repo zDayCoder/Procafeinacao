@@ -12,7 +12,7 @@ function error($attb1, $attb2, $attb3)
     $expiringTime = time() + 10;
     setcookie('hidden_message', $jsonData, $expiringTime);
     $base_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
-    $page = $base_url . "/TCC/Procafeinacao/error";
+    $page = $base_url . "/TCC/Procafeinacao/utils/error";
     header("Location: " . $page);
     exit;
 }
@@ -23,7 +23,7 @@ function connection()
     $password = "";
 
     $dbname = createDatabase(new mysqli($servername, $username, $password), "if0_35034372_procafedb");
-    
+
     try {
         global $conn;
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -68,9 +68,11 @@ function createTables()
 {
     createTableEndereco();
     createTableUser();
+    createTableUserPhotos();
     createTableCliente();
     createTableEmpresa();
-    createTableHorarioFuncionamento();
+    createTableDataFuncionamento();
+    createTableHorasFuncionamento();
     createTableCategoria();
     createTableAdicional();
     createTableItem();
@@ -109,7 +111,7 @@ function createTableEndereco()
         closeconn();
         return false; // Erro ao criar tabela
     }
-    
+
 }
 /*
 function createTableUser()
@@ -143,9 +145,8 @@ function createTableUser()
         user_password VARCHAR(128) NOT NULL,
         user_phone VARCHAR(11) DEFAULT NULL,
         user_email VARCHAR(120) NOT NULL,
-        user_photo MEDIUMBLOB DEFAULT NULL,
         user_type CHAR NOT NULL DEFAULT 'C',
-        address_id INT NOT NULL,
+        address_id INT DEFAULT NULL,
         FOREIGN KEY (address_id) REFERENCES address(address_id)
     )";
 
@@ -156,6 +157,27 @@ function createTableUser()
         error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'user'");
         closeconn();
         return false; // Erro ao criar tabela
+    }
+}
+
+function createTableUserPhotos()
+{
+    $conn = connection();
+    $createTable = "CREATE TABLE IF NOT EXISTS user_photo (
+    user_photo_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    user_photo_name VARCHAR(255) NOT NULL,
+    user_photo_type VARCHAR(100) NOT NULL,
+    user_photo_data MEDIUMBLOB,
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    )";
+
+    if ($conn->query($createTable) === TRUE) {
+        closeconn();
+        return true;
+    } else {
+        closeconn();
+        throw new Exception("Erro ao criar tabela 'user_photo'");
     }
 }
 
@@ -197,15 +219,35 @@ function createTableEmpresa()
     }
 }
 
-function createTableHorarioFuncionamento()
+function createTableDataFuncionamento()
+{
+    $conn = connection();
+    $createTable = "CREATE TABLE IF NOT EXISTS opening_date (
+        opening_date_id INT AUTO_INCREMENT PRIMARY KEY,
+        opening_date_day ENUM('Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo') NOT NULL,
+        business_id INT NOT NULL,
+        FOREIGN KEY (business_id) REFERENCES business(user_id)    
+    )";
+
+    if ($conn->query($createTable) === TRUE) {
+        closeconn();
+        return true;
+    } else {
+        error('coming-soon-img.png', $conn->error, "Erro ao criar tabela 'opening_date'");
+        closeconn();
+        return false; // Erro ao criar tabela
+    }
+}
+
+function createTableHorasFuncionamento()
 {
     $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS opening_hours (
         opening_hours_id INT AUTO_INCREMENT PRIMARY KEY,
-        opening_hours_days BIGINT(11) NOT NULL,
-        opening_hours_time_day DATE NOT NULL,
-        business_id INT NOT NULL,
-        FOREIGN KEY (business_id) REFERENCES business(user_id)
+        opening_date_id INT NOT NULL,
+        opening_hours_start_hour TIME NOT NULL,
+        opening_hours_end_hour TIME NOT NULL,
+        FOREIGN KEY (opening_date_id) REFERENCES opening_date(opening_date_id)
     )";
 
     if ($conn->query($createTable) === TRUE) {
@@ -284,7 +326,7 @@ function createTableItemAdicional()
         item_id INT NOT NULL,
         aditional_id INT NOT NULL,
         PRIMARY KEY (item_id, aditional_id),
-        FOREIGN KEY (item_id) REFERENCES item(item_id),
+        FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE CASCADE,
         FOREIGN KEY (aditional_id) REFERENCES aditional(aditional_id)
     )";
 
@@ -303,9 +345,12 @@ function createTableMenu()
     $conn = connection();
     $createTable = "CREATE TABLE IF NOT EXISTS menu (
         menu_id INT AUTO_INCREMENT PRIMARY KEY,
+        item_id INT NOT NULL,
         business_id INT NOT NULL,
-        FOREIGN KEY (business_id) REFERENCES business(user_id)
+        FOREIGN KEY (business_id) REFERENCES business(user_id),
+        FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE CASCADE
     )";
+    
 
     if ($conn->query($createTable) === TRUE) {
         closeconn();

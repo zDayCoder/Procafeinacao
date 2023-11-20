@@ -3,12 +3,13 @@ $message = null;
 session_start();
 require_once($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/sqls/UAC/login_uac_sql.php');
 if (session_status() === PHP_SESSION_ACTIVE) {
+    //session_destroy();
     if (!empty($_SESSION) && isset($_SESSION['Ucpfcnpj'])) {
         if (isset($_SESSION['Ucpfcnpj']) && isset($_SESSION['Upassword'])) {
             $user_cpfcnpj = $_SESSION['Ucpfcnpj'];
             $user_password = $_SESSION['Upassword'];
             $base_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
-            $page = $base_url . "/TCC/Procafeinacao/pages/menu/menu-itens";
+            $page = $base_url . "/TCC/Procafeinacao/pages/home";
 
             if (strlen($user_cpfcnpj) === 11) {
                 $user = array(
@@ -40,7 +41,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                     $message = "Por favor, verifique o campo CPF/CNPJ e tente novamente.";
                 } else {
                     $base_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
-                    $page = $base_url . "/TCC/Procafeinacao/pages/menu/menu-itens";
+                    $page = $base_url . "/TCC/Procafeinacao/pages/home";
 
                     if (strlen($user_cpfcnpj) === 11) {
                         $user = array(
