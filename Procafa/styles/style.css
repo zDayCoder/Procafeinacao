@@ -3,7 +3,8 @@ body {
   background-repeat: no-repeat;
   background-attachment: relative;
   background-position: relative;
-  background-size: 1400px;
+  background-size: 100%;
+  background-color: #f5efe0;
 }
 
 
@@ -12,25 +13,13 @@ section{
     width: 100%;
 }
 
-@media screen and (max-width: 1200px) {
-  body {
-    background-size: 1200px;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  body {
-    background-size: 1000px;
-  }
-}
-
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 500px) {
   body {
     background-size: 800px;
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 300px) {
   body {
     background-size: 600px;
   }

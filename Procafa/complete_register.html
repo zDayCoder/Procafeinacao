@@ -1,4 +1,4 @@
-<?php
+<!--?php
 $message = null;
 session_start();
 require_once($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/sqls/UAC/login_uac_sql.php');
@@ -80,7 +80,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
         $user = findUserByID($user_id);
         if ($user) {
             if (empty($user['address_id']) || $user['address_id'] === null) {
-                ?>
+                ?-->
 
                 <!DOCTYPE html>
                 <html lang="pt-br">
@@ -94,6 +94,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                     <link rel="stylesheet" href="/TCC/Procafeinacao/assets/css/style.css">
+                    <link rel="stylesheet" href="styles/style.css">
                     <style>
                         @font-face {
                             font-family: "generic";
@@ -103,8 +104,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                     </style>
                 </head>
 
-                <body
-                    style="background: url(/TCC/Procafeinacao/pages/img/cardapio.jpg) no-repeat center fixed;background-size: cover; ">
+                <body>
                     <div class="auth-page-wrapper pt-5 pb-5">
                         <div class="container">
                             <div class="main-content">
@@ -316,7 +316,6 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                                                                         </div>
                                                                     </fieldset>
 
-                                                                    <?php if ($user['user_type'] === 'B'): ?>
 
                                                                         <fieldset class="d-block">
                                                                             <div class="card-header">
@@ -415,14 +414,14 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
                         </div>
 
-                        <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/parts/rodape.php'); ?>
+                        <!--?php require_once($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/parts/rodape.php'); ?-->
 
                     </div>
 
                 </body>
 
                 </html>
-            <?php } else {
+            <!--<?php } else {
                 header("Location: /TCC/Procafeinacao/acesso/login");
             }
         } else {
@@ -433,4 +432,4 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     }
 } else {
     header("Location: /TCC/Procafeinacao/acesso/login");
-} } ?>
+} ?-->

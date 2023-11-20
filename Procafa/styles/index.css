@@ -28,20 +28,21 @@ h1 {
 
 .cafe {
   position: relative;
-  top: 198px;
-  left: 500px;
-  border-radius: var(--br-129xl-5);
-  width: 20%;
+  display: flex;
+  margin-top: 20%;
+  left: 33%;
+  width: 30%;
   height: auto;
   object-fit: cover;
 }
 
 .botao {
   position: relative;
-  top: 328px;
-  left: 230px;
+  display: flex;
+  margin-top: 5%;
+  left: 40%;
+  width: 15%;
   border-radius: var(--br-129xl-5);
-  width: 20%;
   height: auto;
   background-color: #04AA6D; /* Green */
   border: none;
@@ -59,16 +60,6 @@ h1 {
     font-size: 80px;
   }
 
-  .cafe {
-    width: 25%;
-    left: 400px;
-  }
-
-  .botao {
-    position: relative;
-    top: 328px;
-    left: 120px;
-  }
 }
 
 @media screen and (max-width: 1000px) {
@@ -76,33 +67,23 @@ h1 {
     font-size: 60px;
   }
 
-  .cafe {
-    width: 30%;
-    left: 300px;
-  }
-
   .botao {
-    position: relative;
-    top: 328px;
-    left: 60px;
+    width: 25%;
   }
 }
 
 @media screen and (max-width: 800px) {
   h1{
     font-size: 40px;
+    color: #81503600;
   }
 
-  .cafe {
-    width: 40%;
-    top: 250px;
-    left: 100px;
-  }
+  
 
   .botao {
-    position: relative;
-    top: 450px;
-    left: -70px;
+    margin-top: 10%;
+    left: 30%;
+    width: 30%;
   }
 }
 
@@ -113,15 +94,15 @@ h1 {
   }
 
   .cafe {
-    width: 50%;
-    top: 150px;
-    left: 100px;
+    margin-top: 40%;
+    left: 35%;
+    width: 40%;
   }
 
   .botao {
-    position: relative;
-    top: 328px;
-    left: -90px;
+    margin-top: 10%;
+    left: 35%;
+    width: 40%;
   }
 }
 
@@ -132,15 +113,15 @@ h1 {
   }
 
   .cafe {
+    margin-top: 40%;
+    left: 25%;
     width: 50%;
-    top: 750px;
-    left: 100px;
   }
 
   .botao {
-    position:relative;
-    top: 850px;
-    left: -50px;
+    margin-top: 10%;
+    left: 30%;
+    width: 40%;
   }
 }
 
