@@ -1,4 +1,4 @@
-<?php
+<!--?php
 $message = null;
 session_start();
 require_once($_SERVER['DOCUMENT_ROOT'] . '/TCC/Procafeinacao/database/sqls/UAC/login_uac_sql.php');
@@ -63,7 +63,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
         }
     }
 
-    ?>
+    ?-->
 
 
     <!DOCTYPE html>
@@ -77,7 +77,9 @@ if (session_status() === PHP_SESSION_ACTIVE) {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="icon" type="imagem/png" href="../assets/img/cafe.png" />
         <link rel="stylesheet" href="/TCC/Procafeinacao/assets/css/style.css">
+        <link rel="stylesheet" href="../assets/css/header.css">
         <style>
             @font-face {
                 font-family: "generic";
@@ -88,10 +90,23 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
     </head>
 
-    <body style="background: url(../pages/img/cardapio.jpg) no-repeat center fixed;
-background-size: cover;">
-        <div class="auth-page-wrapper pt-5">
-            <div class="container">
+    <body style="background-color: #f5efe0;">
+
+    <!--Menu-->
+    <header class="header">
+        <nav class="nav">
+        <a href="/Procafeinacao/" class="logo"><img src="../assets/img/cafe.png"> </a>
+        <button class="hamburger"></button>
+            <ul  class="nav-list">
+                <li><a style="color: #111;" href="/Procafeinacao/">App</a></li>
+                <li><a style="color: #111;" href="/TCC/Procafeinacao/acesso/register">Cadastro</a></li>
+                <li><a style="color: #111;" href="/TCC/Procafeinacao/acesso/login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!--Fim Menu-->
+    <div class="auth-page-wrapper pt-5">
+        <div class="container" style="margin-bottom: 20px;">
                 <div class="main-content">
                     <div class="page-content">
                         <div class="container-fluid">
@@ -250,4 +265,4 @@ background-size: cover;">
 
     </html>
 
-<?php } ?>
+<?php  ?>
