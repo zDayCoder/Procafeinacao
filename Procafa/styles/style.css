@@ -1,0 +1,26 @@
+body {
+  background-image: url('../img/capa.png');
+  background-repeat: no-repeat;
+  background-attachment: relative;
+  background-position: relative;
+  background-size: 100%;
+  background-color: #f5efe0;
+}
+
+
+section{
+    min-height: 100vh;
+    width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  body {
+    background-size: 800px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  body {
+    background-size: 600px;
+  }
+}

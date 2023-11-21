@@ -3,122 +3,35 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none !important;
 }
 
-
-/* .col-4 {
-    margin-left: 10%;
-} */
-
-.card {
-    background: rgba(111, 49, 0, 0.1);
-    box-shadow: 10px 10px 5px rgb(71, 54, 31);
-}
+body {
+    background-image: url('../img/capa.png');
+    background-repeat: no-repeat;
+    background-attachment: relative;
+    background-position: relative;
+    background-size: 100%;
+    background-color: #f5efe0;
+  }
+  
+  
+  section{
+      min-height: 100vh;
+      width: 100%;
+  }
+  
+  @media screen and (max-width: 500px) {
+    body {
+      background-size: 800px;
+    }
+  }
+  
+  @media screen and (max-width: 300px) {
+    body {
+      background-size: 600px;
+    }
+  }
 
 h3 {
     color: #111;
     text-shadow: 2px 2px 5px rgb(65, 56, 56)
 }
 
-:root {
-    --dark-color: #037fff;
-    --light-color: #03e5ff;
-}
-
-svg {
-    cursor: pointer;
-    height: 500px;
-    width: 60%;
-    margin-top: -5%;
-    margin-left: 25%;
-}
-
-#Fumaca {
-    fill: var(--dark-color);
-}
-
-#Pote {
-    fill: var(--light-color);
-}
-
-#fumaca1,
-#fumaca2,
-#fumaca3,
-#fumaca4,
-#copo,
-#letra {
-    transition: all 1s ease;
-}
-
-#letra {
-    transform: translateY(25%);
-}
-
-svg:hover #copo {
-    transform: translateY(-2%);
-}
-
-svg:hover #fumaca1 {
-    transform: translateY(-48%);
-    opacity: 0;
-}
-
-svg:hover #fumaca2 {
-    transform: translateY(-43%);
-    opacity: 0;
-}
-
-svg:hover #fumaca3 {
-    transform: translateY(-38%);
-    opacity: 0;
-}
-
-svg:hover #fumaca4 {
-    transform: translateY(-32%);
-    opacity: 0;
-}
-
-svg:hover #letra {
-    transform: translateY(-5%);
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    position: relative;
-    top: 0;
-    width: 100%;
-}
-
-li {
-    float: left;
-}
-
-li a {
-    font-family: Verdana;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-}
-
-li a:hover:not(.active) {
-    background-color: #111;
-}
-
-.active {
-    background-color: #04AA6D;
-}
-
-.active:hover {
-    background-color: #000;
-}
-
-li a:hover:not(.active),
-.active,
-li a {
-    transition: 0.2s;
-    text-decoration: none !important;
-    color: white !important;
-}

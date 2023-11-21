@@ -1,0 +1,135 @@
+
+.capa {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+
+h1 {
+  font-family: var(--font-jost);
+  position: relative;
+  font-size: 100px;
+  margin-top: 10%;
+  margin-left: -120px;
+  left: 100px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #04AA6D;
+  text-align: center;
+  text-shadow: 6px 6px 4px rgba(66, 56, 56, 0.445);
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+
+.cafe {
+  position: relative;
+  display: flex;
+  margin-top: 20%;
+  left: 33%;
+  width: 30%;
+  height: auto;
+  object-fit: cover;
+  box-shadow: 58px 38px 12px 0 rgba(39, 34, 34, 0.2);
+  transition: height 2s;
+}
+
+.cafe:hover{
+  height: 100%;
+}
+
+.botao {
+  position: relative;
+  display: flex;
+  margin-top: 5%;
+  left: 40%;
+  width: 15%;
+  border-radius: var(--br-129xl-5);
+  height: auto;
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  box-shadow: 8px 8px 8px 0 rgba(0,0,0,0.2);
+}
+
+@media screen and (max-width: 1200px) {
+  h1{
+    font-size: 80px;
+  }
+
+}
+
+@media screen and (max-width: 1000px) {
+  h1{
+    font-size: 60px;
+  }
+
+  .botao {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  h1{
+    font-size: 40px;
+    color: #81503600;
+  }
+
+  
+
+  .botao {
+    margin-top: 10%;
+    left: 30%;
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  h1{
+    font-size: 20px;
+    color: #81503600;
+  }
+
+  .cafe {
+    margin-top: 40%;
+    left: 35%;
+    width: 40%;
+  }
+
+  .botao {
+    margin-top: 10%;
+    left: 35%;
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  h1{
+    font-size: 20px;
+    color: #81503600;
+  }
+
+  .cafe {
+    margin-top: 40%;
+    left: 25%;
+    width: 50%;
+  }
+
+  .botao {
+    margin-top: 10%;
+    left: 30%;
+    width: 40%;
+  }
+}
+
+
