@@ -1,10 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500&family=Silkscreen&display=swap');
+
 * {
     margin: 0;
     padding: 0;
   }
+
+  img{
+    width: 100%;
+    height: 52px; 
+    transition: height 0.5s;
+  }
+
+  img:hover{
+    height: 58px;
+  }
   
   a {
-    font-family: sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
     text-decoration: none;
   }
   
@@ -76,7 +88,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color:#815036ad;
+      background-color:#6c503ab6;
       clip-path: circle(100px at 90% -15%);
       transition: 1s ease-out;
   

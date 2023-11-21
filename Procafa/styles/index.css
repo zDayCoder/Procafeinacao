@@ -18,8 +18,9 @@ h1 {
   left: 100px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #fff;
+  color: #04AA6D;
   text-align: center;
+  text-shadow: 6px 6px 4px rgba(66, 56, 56, 0.445);
   display: inline-block;
   width: 100%;
   height: auto;
@@ -34,6 +35,12 @@ h1 {
   width: 30%;
   height: auto;
   object-fit: cover;
+  box-shadow: 58px 38px 12px 0 rgba(39, 34, 34, 0.2);
+  transition: height 2s;
+}
+
+.cafe:hover{
+  height: 100%;
 }
 
 .botao {
@@ -52,7 +59,7 @@ h1 {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 8px 8px 8px 0 rgba(0,0,0,0.2);
 }
 
 @media screen and (max-width: 1200px) {
