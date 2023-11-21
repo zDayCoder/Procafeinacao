@@ -112,13 +112,13 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
                 <!--Menu-->
                 <header class="header">
-                    <nav class="nav">
-                        <a href="index.html" class="logo"><img src="../assets/img/cafe.png"> </a>
-                        <button class="hamburger"></button>
+                <nav class="nav">
+                    <a href="/TCC/Procafeinacao/" class="logo"><img src="../assets/img/cafe.png"> </a>
+                    <button class="hamburger"></button>
                         <ul  class="nav-list">
-                            <li><a style="color: #111;" href="#">App</a></li>
-                            <li><a style="color: #111;" href="register.html">Cadastro</a></li>
-                            <li><a style="color: #111;" href="login.html">Login</a></li>
+                            <li><a style="color: #111;" href="/TCC/Procafeinacao/">App</a></li>
+                            <li><a style="color: #111;" href="/TCC/Procafeinacao/acesso/register">Cadastro</a></li>
+                            <li><a style="color: #111;" href="/TCC/Procafeinacao/acesso/login">Login</a></li>
                         </ul>
                     </nav>
                 </header>

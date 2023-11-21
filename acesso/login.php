@@ -95,10 +95,10 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     <!--Menu-->
     <header class="header">
         <nav class="nav">
-        <a href="/Procafeinacao/" class="logo"><img src="../assets/img/cafe.png"> </a>
+        <a href="/TCC/Procafeinacao/" class="logo"><img src="../assets/img/cafe.png"> </a>
         <button class="hamburger"></button>
             <ul  class="nav-list">
-                <li><a style="color: #111;" href="/Procafeinacao/">App</a></li>
+                <li><a style="color: #111;" href="/TCC/Procafeinacao/">App</a></li>
                 <li><a style="color: #111;" href="/TCC/Procafeinacao/acesso/register">Cadastro</a></li>
                 <li><a style="color: #111;" href="/TCC/Procafeinacao/acesso/login">Login</a></li>
             </ul>
